@@ -1,0 +1,31 @@
+/PROG  TEST5
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 453;
+CREATE		= DATE 18-07-02  TIME 06:49:06;
+MODIFIED	= DATE 18-07-02  TIME 06:57:04;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 1;
+MEMORY_SIZE	= 821;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:J P[1] 100% FINE Tool_Offset,PR[37]    ;
+/POS
+P[1]{
+   GP1:
+	UF : 0, UT : 1,		CONFIG : 'N U T, 0, 0, 0',
+	X =   486.949  mm,	Y =     2.895  mm,	Z =   341.467  mm,
+	W =     7.604 deg,	P =     1.504 deg,	R =   -86.549 deg
+};
+/END

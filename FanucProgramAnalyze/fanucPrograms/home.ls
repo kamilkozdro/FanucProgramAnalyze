@@ -1,0 +1,33 @@
+/PROG  HOME	  Macro
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 473;
+CREATE		= DATE 17-03-29  TIME 11:30:48;
+MODIFIED	= DATE 17-12-01  TIME 20:47:56;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 3;
+MEMORY_SIZE	= 833;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:  UFRAME_NUM=0 ;
+   2:  UTOOL_NUM=1 ;
+   3:J P[1] 100% FINE    ;
+/POS
+P[1]{
+   GP1:
+	UF : 0, UT : 1,		CONFIG : 'N U T, 0, 0, 0',
+	X =   485.864  mm,	Y =     2.610  mm,	Z =   349.563  mm,
+	W =     7.598 deg,	P =     1.505 deg,	R =   -86.550 deg
+};
+/END

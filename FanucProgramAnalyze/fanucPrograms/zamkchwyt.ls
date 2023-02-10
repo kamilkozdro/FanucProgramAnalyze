@@ -1,0 +1,34 @@
+/PROG  ZAMKCHWYT
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 306;
+CREATE		= DATE 17-07-05  TIME 18:12:14;
+MODIFIED	= DATE 17-07-05  TIME 18:12:14;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 10;
+MEMORY_SIZE	= 778;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:  R[30:pomocniczy]=AR[1]    ;
+   2:  LBL[1] ;
+   3:  CALL STANCHWYTAKA(R[30:pomocniczy]) ;
+   4:   ;
+   5:  IF (R[R[30]]<>1) THEN ;
+   6:  MESSAGE[BRAK DETALU/ZLY CHWYT] ;
+   7:  DO[127:zly chwyt syg]=PULSE,1.0sec ;
+   8:  UALM[2] ;
+   9:  JMP LBL[1] ;
+  10:  ENDIF ;
+/POS
+/END

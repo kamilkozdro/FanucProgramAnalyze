@@ -1,0 +1,34 @@
+/PROG  ODBIERZPRZEDMUCH
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 354;
+CREATE		= DATE 17-07-06  TIME 15:57:50;
+MODIFIED	= DATE 17-09-01  TIME 17:13:16;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 10;
+MEMORY_SIZE	= 710;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:  CALL ZAMKNIJCHWYTAK(AR[1]) ;
+   2:  CALL STANCHWYTAKA(AR[1]) ;
+   3:  !jesli jest detal w chwytaku ;
+   4:  IF (R[AR[1]]=1) THEN ;
+   5:  DO[103:zamknij przechwyt]=OFF ;
+   6:  WAIT (DI[103:przechwyt otwarty]=ON)    ;
+   7:  WAIT    .20(sec) ;
+   8:  ELSE ;
+   9:  CALL ALARM2(1,AR[1]) ;
+  10:  ENDIF ;
+/POS
+/END

@@ -1,0 +1,32 @@
+/PROG  OTWORZCHWYTAK
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 300;
+CREATE		= DATE 17-07-05  TIME 20:25:46;
+MODIFIED	= DATE 18-02-21  TIME 13:55:52;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 8;
+MEMORY_SIZE	= 656;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= *,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:  R[5:aktywny chwytak]=AR[1]    ;
+   2:  R[6:pomocniczy1]=(2*AR[1]-1) ;
+   3:  R[7:pomocniczy2]=(2*AR[1]) ;
+   4:   ;
+   5:  RO[R[6]]=ON ;
+   6:  WAIT    .40(sec) ;
+   7:  CALL STANCHWYTAKA(AR[1]) ;
+   8:  IF R[R[5]]<>0,CALL ALARM2(2,AR[1]) ;
+/POS
+/END

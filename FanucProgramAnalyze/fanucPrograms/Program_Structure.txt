@@ -1,0 +1,125 @@
+Standalone programs:
+-bcked8-
+-bcked9-
+-bckedt-
+bglogic1
+chwytak1
+chwytak2
+chwytak3
+drzwi
+imadla
+masterpos
+test
+test5
+
+Programs:
+pns0008
+pozbezp
+home
+paletki
+zmienpaletki
+pozbezp
+home
+home
+stanchwytaka
+alarm2 ^
+obloffset
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+zamknijchwytak
+obslugacnc
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+zamknijchwytak
+stanchwytaka
+alarm2 ^
+iverson
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+zamknijchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+gratowanie
+stanchwytaka
+alarm2 ^
+przedmuchanie
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+zalozprzedmuch
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+odbierzprzedmuch
+zamknijchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+sprawdziany
+stanchwytaka
+alarm2 ^
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+zamknijchwytak
+alarm2
+stanchwytaka ^
+pozbezp
+home
+pomiary
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+odkladanie
+alarm2
+stanchwytaka ^
+stanchwytaka
+alarm2 ^
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+testchwytak
+zamknijchwytak
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+testodkladanie
+stanchwytaka
+alarm2 ^
+otworzchwytak
+stanchwytaka
+alarm2 ^
+alarm2
+stanchwytaka ^
+testpaletki
+obloffset
+zamkchwyt
+stanchwytaka
+alarm2 ^

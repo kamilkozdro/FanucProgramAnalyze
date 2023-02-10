@@ -1,0 +1,58 @@
+/PROG  ALARM2
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 734;
+CREATE		= DATE 17-07-05  TIME 20:06:14;
+MODIFIED	= DATE 17-07-06  TIME 16:03:52;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 34;
+MEMORY_SIZE	= 1238;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:   ;
+   2:  !ZLY CHWYT/BRAK DETALU ;
+   3:  IF (AR[1]=1) THEN ;
+   4:  LBL[1] ;
+   5:  DO[127:zly chwyt syg]=PULSE,1.0sec ;
+   6:  UALM[2] ;
+   7:  CALL STANCHWYTAKA(AR[2]) ;
+   8:  IF R[AR[2]]<>1,JMP LBL[1] ;
+   9:  ENDIF ;
+  10:   ;
+  11:  !NIEOTWARTY CHWYTAK ;
+  12:  IF (AR[1]=2) THEN ;
+  13:  LBL[2] ;
+  14:  DO[127:zly chwyt syg]=PULSE,1.0sec ;
+  15:  UALM[4] ;
+  16:  CALL STANCHWYTAKA(AR[2]) ;
+  17:  IF R[AR[2]]<>0,JMP LBL[2] ;
+  18:  ENDIF ;
+  19:   ;
+  20:  !ZLE ZAMKNIETE IMADLO CNC ;
+  21:  IF (AR[1]=3) THEN ;
+  22:  DO[128:imadlo blad]=PULSE,1.0sec ;
+  23:  PAUSE ;
+  24:  ENDIF ;
+  25:   ;
+  26:  !PELNY KOSZ ;
+  27:  IF (AR[1]=4) THEN ;
+  28:  UALM[6] ;
+  29:  ENDIF ;
+  30:   ;
+  31:  !BLAD CZUJNIKOW NA CHWYTAKU ;
+  32:  IF (AR[1]=5) THEN ;
+  33:  UALM[7] ;
+  34:  ENDIF ;
+/POS
+/END
