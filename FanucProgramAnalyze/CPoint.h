@@ -1,18 +1,22 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
 class CPoint
 {
 public:
-	enum class Type {Joint, Cartesian};
+	enum class Type {Joint, Cartesian, None};
 
+	CPoint();
 	virtual ~CPoint();
 
 	void setPosition(float newPos[6]);
+	void setPosition(std::vector<float> newPos);
 	void setPosition(unsigned int index, float newPos);
 	float getPosition(unsigned int index);
 	void setIndex(unsigned int newIndex) { pointIndex = newIndex; };
 	unsigned int getIndex() { return pointIndex; };
+	Type getType() { return type; };
 	void virtual printInfo();
 
 private:
@@ -36,12 +40,14 @@ protected:
 
 class CPointCartesian : public CPoint
 {
+	
+
+public:
 	enum class ConfigFlag1 { N, F };
 	enum class ConfigFlag2 { U, D };
 	enum class ConfigFlag3 { T, B };
 	enum class ConfigFlag01 { Zero, One };
 
-public:
 	struct pointConfig
 	{
 		ConfigFlag1 flag1 = ConfigFlag1::N;

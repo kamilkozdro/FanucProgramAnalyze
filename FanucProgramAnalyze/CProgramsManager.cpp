@@ -13,24 +13,17 @@ CProgramsManager::~CProgramsManager()
 	}
 	programs.clear();
 
-	std::cout << "CProgramsManager destroyed" << std::endl;
+	//std::cout << "CProgramsManager destroyed" << std::endl;
 }
 
-bool CProgramsManager::addProgram(std::string newProgramName)
+bool CProgramsManager::addProgram(std::string newProgramText, std::string newProgramName = "")
 {
-	if (hasProgramName(newProgramName))
-	{
-		std::cout << "Program already opened" << std::endl;
-		return false;
-	}
+	//std::cout << "Adding program: " << newProgramName << std::endl;
 
-	std::cout << "Adding program: " << newProgramName << std::endl;
-
-	CProgram* newProgram = new CProgram(newProgramName);
+	CProgram* newProgram = new CProgram(newProgramText, newProgramName);
 	programs.push_back(newProgram);
 
 	return true;
-
 }
 
 bool CProgramsManager::hasProgramName(std::string programName)
@@ -43,33 +36,88 @@ bool CProgramsManager::hasProgramName(std::string programName)
 	return false;
 }
 
-void CProgramsManager::readFile(std::string fileName)
+std::string CProgramsManager::readFileContent(std::string fileName)
 {
-	if (streamRead.is_open())
-		streamRead.close();
+	std::ifstream fileStream;
 
-	streamRead.open(fileName);
+	if (fileStream.is_open())
+		fileStream.close();
 
-	if (!streamRead.is_open())
+	fileStream.open(fileName);
+
+	if (!fileStream.is_open())
 	{
 		std::cout << "Cannot open file: " << fileName << std::endl;
-		return;
+		return "";
 	}
 
-	std::string newProgramName = readProgramNameFromFile();
+	std::stringstream strStream;
+	strStream << fileStream.rdbuf();
+	fileStream.close();
+	return strStream.str();
 
-	if (newProgramName == "")
+}
+
+bool CProgramsManager::readProgramFromFile(std::string fileName)
+{
+	if (fileName.empty())
 	{
-		std::cout << "Could not find program name in file" << std::endl;
-		return;
+		//THROW ERROR
+		return false;
 	}
 
-	if (!addProgram(newProgramName))
+	std::string fileBuffer = readFileContent(fileName);
+	if (fileBuffer.empty())
 	{
-		return;
+		//THROW ERROR
+		return false;
 	}
 
-	streamRead.close();
+	std::string programName = readProgramName(fileBuffer);
+
+	if (programName.empty())
+	{
+		std::cout << "There is no program name in: " << fileName << "\n";
+		return false;
+	}
+	if (hasProgramName(programName))
+	{
+		//THROW ERROR
+		std::cout << "Program already opened" << std::endl;
+		return false;
+	}
+
+	addProgram(fileBuffer, programName);
+	programs.back()->readPointsAttributes();
+
+	return true;
+}
+
+std::string CProgramsManager::readProgramName(std::string& buffer)
+{
+	std::string programNameKeyword = "/PROG";
+	std::string programName;
+	size_t programNameIndex = buffer.find(programNameKeyword);
+	if (programNameIndex == std::string::npos)
+	{
+		return "";
+	}
+	programNameIndex += programNameKeyword.length();
+	// Skip whitespaces after keyword
+	while (std::isspace(buffer[programNameIndex]))
+	{
+		programNameIndex++;
+	}
+	// Read program name
+	while (std::isalnum(buffer[programNameIndex])
+		|| buffer[programNameIndex] == '_'
+		|| buffer[programNameIndex] == '-')
+	{
+		programName.push_back(buffer[programNameIndex]);
+		programNameIndex++;
+	}
+
+	return programName;
 }
 
 void CProgramsManager::printProgramNameList()
@@ -83,33 +131,23 @@ void CProgramsManager::printProgramNameList()
 	}
 }
 
-std::string CProgramsManager::readProgramNameFromFile()
+CProgram* CProgramsManager::getProgramByName(std::string programName)
 {
-	if (!streamRead.is_open())
+	for (unsigned int i = 0; i < programs.size(); ++i)
 	{
-		std::cout << "File is not opened" << std::endl;
-		return "";
-	}
-	// Return to beggining of file
-	streamRead.clear();
-	streamRead.seekg(0, std::ios::beg);
-
-	std::string lineRead;
-	std::string programName;
-	std::string PROGString("/PROG");
-
-	while (!streamRead.eof())
-	{
-		std::getline(streamRead, lineRead);
-		std::size_t pos = lineRead.find(PROGString);
-		if (pos != std::string::npos)
-		{
-			std::stringstream lineStream(lineRead);
-			lineStream.seekg(pos + PROGString.length(), std::ios::beg);
-			lineStream >> programName;
-			return programName;
-		}
+		if (programs.at(i)->getProgramName() == programName)
+			return programs.at(i);
 	}
 
-	return "";
+	return nullptr;
+}
+
+int CProgramsManager::getProgramIndexByName(std::string programName)
+{
+	for (unsigned int i = 0; i < programs.size(); ++i)
+	{
+		if (programs.at(i)->getProgramName() == programName)
+			return i;
+	}
+	return -1;
 }

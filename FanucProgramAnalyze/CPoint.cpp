@@ -2,13 +2,32 @@
 
 // ******************** CPoint ************************
 
+CPoint::CPoint()
+{
+	type = Type::None;
+}
+
 CPoint::~CPoint()
 {
-	std::cout << "CPoint[" << pointIndex << "] destroyed" << std::endl;
+	//std::cout << "CPoint[" << pointIndex << "] destroyed" << std::endl;
 }
 
 void CPoint::setPosition(float newPos[6])
 {
+	for (unsigned short i = 0; i < 6; ++i)
+	{
+		position[i] = newPos[i];
+	}
+}
+
+void CPoint::setPosition(std::vector<float> newPos)
+{
+	if (newPos.size() != 6)
+	{
+		//THROW ERROR
+		return;
+	}
+
 	for (unsigned short i = 0; i < 6; ++i)
 	{
 		position[i] = newPos[i];
@@ -149,12 +168,12 @@ std::string CPointCartesian::getConfigString()
 void CPointCartesian::printInfo()
 {
 	std::cout << "Point P[" << pointIndex << "]:" << std::endl;
-	std::cout << "\t1: X: " << position[0] << "mm" << std::endl;
-	std::cout << "\t2: Y: " << position[1] << "mm" << std::endl;
-	std::cout << "\t3: Z: " << position[2] << "mm" << std::endl;
-	std::cout << "\t4: W: " << position[3] << "deg" << std::endl;
-	std::cout << "\t5: P: " << position[4] << "deg" << std::endl;
-	std::cout << "\t6: R: " << position[5] << "deg" << std::endl;
+	std::cout << "\t1: X: " << position[0] << " mm" << std::endl;
+	std::cout << "\t2: Y: " << position[1] << " mm" << std::endl;
+	std::cout << "\t3: Z: " << position[2] << " mm" << std::endl;
+	std::cout << "\t4: W: " << position[3] << " deg" << std::endl;
+	std::cout << "\t5: P: " << position[4] << " deg" << std::endl;
+	std::cout << "\t6: R: " << position[5] << " deg" << std::endl;
 	std::cout << "\tConfig: " << getConfigString() << std::endl;
 	std::cout << "\tFrame: " << frame << " Tool: " << tool << std::endl;
 }

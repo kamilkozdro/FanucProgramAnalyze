@@ -13,18 +13,20 @@ public:
 	CProgramsManager();
 	~CProgramsManager();
 
-	void readFile(std::string fileName);
-
+	
+	bool readProgramFromFile(std::string fileName);
 	void printProgramNameList();
+	CProgram* getProgramByName(std::string programName);
+	int getProgramIndexByName(std::string programName);
 
 private:
-
-	std::ifstream streamRead;
 	std::vector<CProgram*> programs;
-
-	std::string readProgramNameFromFile();
-	bool addProgram(std::string newProgramName);
+	std::string readFileContent(std::string fileName);
+	//std::vector<std::string> readPointsFromFile();
+	bool addProgram(std::string newProgramText, std::string newProgramName);
 	bool hasProgramName(std::string programName);
+	std::string readProgramName(std::string& buffer);
+	
 
 protected:
 

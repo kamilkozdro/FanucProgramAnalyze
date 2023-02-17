@@ -6,9 +6,7 @@
 
 int main()
 {
-	std::vector<std::string> excludePrograms{
-
-	};
+	std::vector<std::string> excludePrograms{};
 
 	std::string path("fanucPrograms/");
 	std::string allowedExtension(".ls");
@@ -32,10 +30,15 @@ int main()
 
 	for (std::string file : programFiles)
 	{
-		programManager.readFile(path+file);
+		programManager.readProgramFromFile(path + file);
 	}
+	
+	CProgram* fanucProgram = programManager.getProgramByName("OBSLUGACNC");
+	if (fanucProgram == nullptr)
+		return 0;
 
-	programManager.printProgramNameList();
+	fanucProgram->printPoints();
+
 
 	return 1;
 }
