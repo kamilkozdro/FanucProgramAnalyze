@@ -6,6 +6,7 @@
 
 int main()
 {
+
 	std::vector<std::string> excludePrograms{};
 
 	std::string path("fanucPrograms/");
@@ -33,11 +34,12 @@ int main()
 		programManager.readProgramFromFile(path + file);
 	}
 	
-	CProgram* fanucProgram = programManager.getProgramByName("OBSLUGACNC");
+	CProgram* fanucProgram = programManager.getProgramByName("PNS0008");
 	if (fanucProgram == nullptr)
 		return 0;
 
-	fanucProgram->printPoints();
+	fanucProgram->readProgramsCalls();
+	fanucProgram->printProgramsNames();
 
 
 	return 1;

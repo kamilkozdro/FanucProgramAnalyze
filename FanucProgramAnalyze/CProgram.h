@@ -32,22 +32,26 @@ public:
 	void setProgramName(std::string newName) { programName = newName; };
 	std::string getProgramName() { return programName; };
 	bool readPointsAttributes();
+	bool readProgramsCalls();
+
 
 	void printPoints();
-	void printPrograms();
+	void printProgramsNames();
 
 	static std::string findString(std::string& buffer,
 		std::string sStartWith,
 		std::string sEndsWith,
 		bool ignoreWhitespace);
 	static std::string readNumber(std::string& buffer, size_t startPos);
-	bool readSinglePointAttributes(std::string& buffer);
+	std::string readProgramCall(std::string& buffer, size_t &pos);
 
 private:
+
 	std::vector<CPoint*> points;
+	std::vector<std::string> calledProgramsNames;
 	std::string programName;
 	std::string programText;
 
-
+	bool readSinglePointAttributes(std::string& buffer);
 };
 

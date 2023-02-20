@@ -124,9 +124,9 @@ void CProgramsManager::printProgramNameList()
 {
 	for (CProgram* program : programs)
 	{
-		std::cout << "program name:" << program->getProgramName() << std::endl;
-		std::cout << " Sub programs:" << std::endl;
-		program->printPrograms();
+		std::cout << "Program name:" << program->getProgramName() << std::endl;
+		//std::cout << " Called programs:" << std::endl;
+		program->printProgramsNames();
 		std::cout << std::endl;
 	}
 }

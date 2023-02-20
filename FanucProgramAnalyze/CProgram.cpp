@@ -138,6 +138,38 @@ bool CProgram::readPointsAttributes()
 	return true;
 }
 
+bool CProgram::readProgramsCalls()
+{
+	size_t sectionStartPos = programText.find("/MN");
+	if (sectionStartPos == std::string::npos)
+	{
+		return false;
+	}
+	size_t sectionEndPos = programText.find("/POS", sectionStartPos);
+	if (sectionEndPos == std::string::npos)
+	{
+		return false;
+	}
+
+	std::string programSection = programText.substr(sectionStartPos, sectionEndPos - sectionStartPos);
+	size_t pos = 0;
+	while (pos < programSection.length())
+	{
+		std::string calledProgramName = readProgramCall(programSection, pos);
+		if (calledProgramName == "")
+			break;
+
+		if (!std::count(calledProgramsNames.begin(), 
+			calledProgramsNames.end(), 
+			calledProgramName))
+		{
+			calledProgramsNames.push_back(calledProgramName);
+		}
+	}
+
+	return true;
+}
+
 void CProgram::printPoints()
 {
 	for (CPoint* point : points)
@@ -147,15 +179,12 @@ void CProgram::printPoints()
 	}
 }
 
-void CProgram::printPrograms()
+void CProgram::printProgramsNames()
 {
-	for (CProgram* program : subPrograms)
+	std::cout << "Called Programs:\n";
+	for (std::string program : calledProgramsNames)
 	{
-		std::cout << "subPrograms:" << std::endl;
-		program->getProgramName();
-		std::cout << std::endl;
-		program->printPrograms();
-		std::cout << std::endl;
+		std::cout << "\t - " << program << "\n";
 	}
 }
 
@@ -225,6 +254,43 @@ std::string CProgram::readNumber(std::string& buffer, size_t startPos = 0)
 	}
 
 	return returnNumberString;
+}
+
+std::string CProgram::readProgramCall(std::string& buffer, size_t& pos)
+{
+	std::string keyword = "CALL";
+	size_t callFoundPos = buffer.find(keyword, pos);
+	if (callFoundPos == std::string::npos)
+	{
+		return "";
+	}
+
+	pos = callFoundPos + keyword.length();
+	// Find beggining of called program name
+	while (!std::isalnum(buffer.at(pos)))
+	{
+		pos++;
+		if (pos >= buffer.length())
+		{
+			return "";
+		}
+	}
+
+	// Add characters to name string
+	std::string calledProgramName;
+	while (std::isalnum(buffer.at(pos))
+		|| buffer.at(pos) == '-'
+		|| buffer.at(pos) == '_')
+	{
+		calledProgramName.push_back(buffer.at(pos));
+		pos++;
+		if (pos >= buffer.length())
+		{
+			return "";
+		}
+	}
+
+	return calledProgramName;
 }
 
 bool CProgram::readSinglePointAttributes(std::string& buffer)
