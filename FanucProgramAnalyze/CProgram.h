@@ -4,6 +4,7 @@
 #include <string>
 
 #include "CPoint.h"
+#include "CSignal.h"
 
 class CProgram
 {
@@ -33,25 +34,35 @@ public:
 	std::string getProgramName() { return programName; };
 	bool readPointsAttributes();
 	bool readProgramsCalls();
-
+	bool readSignals();
 
 	void printPoints();
+	void printSignals();
 	void printProgramsNames();
 
 	static std::string findString(std::string& buffer,
 		std::string sStartWith,
 		std::string sEndsWith,
+		size_t& offPos,
+		bool ignoreWhitespace);
+	static std::string findString(std::string& buffer,
+		std::string sStartWith,
+		std::string sEndsWith,
 		bool ignoreWhitespace);
 	static std::string readNumber(std::string& buffer, size_t startPos);
-	std::string readProgramCall(std::string& buffer, size_t &pos);
+	
 
 private:
 
 	std::vector<CPoint*> points;
 	std::vector<std::string> calledProgramsNames;
+	std::vector<CSignal> signals;
 	std::string programName;
 	std::string programText;
 
 	bool readSinglePointAttributes(std::string& buffer);
+	std::string readProgramCall(std::string& buffer, size_t& pos);
+	
+	bool containSignal(CSignal newSignal);
 };
 

@@ -179,6 +179,16 @@ void CProgram::printPoints()
 	}
 }
 
+void CProgram::printSignals()
+{
+	std::cout << "Signals:\n";
+	for (CSignal signal : signals)
+	{
+		std::cout << "\t- ";
+		signal.printInfo();
+	}
+}
+
 void CProgram::printProgramsNames()
 {
 	std::cout << "Called Programs:\n";
@@ -191,18 +201,28 @@ void CProgram::printProgramsNames()
 std::string CProgram::findString(std::string& buffer,
 	std::string sStartWith,
 	std::string sEndsWith,
+	size_t& offPos,
 	bool ignoreWhitespace = false)
 {
-	size_t startIndex = buffer.find(sStartWith);
+	size_t startIndex = buffer.find(sStartWith, offPos);
 	if (startIndex == std::string::npos)
 		return "";
 
-	startIndex += sStartWith.length();
-
-	size_t endIndex = buffer.find(sEndsWith, startIndex);
-	if (endIndex == std::string::npos)
-		return "";
-
+	offPos = startIndex;
+	startIndex +=  sStartWith.length();
+	
+	size_t endIndex = 0;
+	if (sEndsWith == "")
+	{
+		endIndex = buffer.length();
+	}
+	else
+	{
+		endIndex = buffer.find(sEndsWith, startIndex);
+		if (endIndex == std::string::npos)
+			return "";
+	}
+	
 	std::string foundString = buffer.substr(startIndex, endIndex - startIndex);
 
 	if (!ignoreWhitespace)
@@ -214,6 +234,15 @@ std::string CProgram::findString(std::string& buffer,
 	}
 
 	return foundString;
+}
+
+std::string CProgram::findString(std::string& buffer,
+	std::string sStartWith,
+	std::string sEndsWith,
+	bool ignoreWhitespace = false)
+{
+	size_t zeroPos = 0;
+	return findString(buffer, sStartWith, sEndsWith, zeroPos, ignoreWhitespace);
 }
 
 std::string CProgram::readNumber(std::string& buffer, size_t startPos = 0)
@@ -296,6 +325,7 @@ std::string CProgram::readProgramCall(std::string& buffer, size_t& pos)
 bool CProgram::readSinglePointAttributes(std::string& buffer)
 {
 	// Find Point number
+	size_t zeroPos = 0;
 	std::string sPointNumber = findString(buffer, "P[", "]");
 	if (sPointNumber.empty())
 	{
@@ -474,4 +504,74 @@ bool CProgram::readSinglePointAttributes(std::string& buffer)
 	}
 	}
 
+}
+
+bool CProgram::readSignals()
+{
+	std::string keywordSign = "[";
+	std::string keywordEnd = "]";
+	std::string keywordCommentBegin = ":";
+	std::string keywordCommentEnd = "";
+	for (CSignal::Type signalType : CSignal::getAllTypes())
+	{
+		if (signalType == CSignal::Type::None)
+			continue;
+		for	(CSignal::IO signalIO : CSignal::getAllIO())
+		{
+			if (signalIO == CSignal::IO::None)
+				continue;
+			std::string keywordBegin =
+				CSignal::getTypeKeyword(signalType)
+				+ CSignal::getIOKeyword(signalIO)
+				+ keywordSign;
+			std::string foundString = "Init";
+			size_t searchPos = 0;
+
+			while (!foundString.empty() && searchPos < programText.length())
+			{
+				foundString = findString(programText, keywordBegin, keywordEnd, searchPos);
+				if (foundString.empty())
+				{
+					continue;
+				}
+
+				// Find signal index
+				size_t searchPos2 = 0;
+				std::string sSignalIndex;
+				while (std::isdigit(foundString.at(searchPos2))
+					&& searchPos2 < foundString.length())
+				{
+					sSignalIndex.push_back(foundString.at(searchPos2));
+					searchPos2++;
+				}
+				if (sSignalIndex.empty())
+					continue;
+				unsigned int signalIndex = std::stoi(sSignalIndex);
+
+				// Find signal comment
+				std::string signalComment =
+					findString(foundString, keywordCommentBegin, keywordCommentEnd);
+				// Create Signal, check if already exist, if not -> add
+				CSignal newSignal(signalIndex, signalType, signalIO, signalComment);
+				if (!containSignal(newSignal))
+				{
+					signals.push_back(newSignal);
+				}
+					
+				searchPos += foundString.length();
+			}
+		}
+	}
+
+	return true;
+}
+
+bool CProgram::containSignal(CSignal newSignal)
+{
+	for (CSignal singleSignal : signals)
+	{
+		if (singleSignal == newSignal)
+			return true;
+	}
+	return false;
 }
