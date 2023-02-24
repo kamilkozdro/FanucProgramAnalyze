@@ -54,10 +54,11 @@ public:
 	
 
 private:
-
+	
 	std::vector<CPoint*> points;
 	std::vector<std::string> calledProgramsNames;
 	std::vector<CSignal> signals;
+	std::vector<CRegister> registers;
 	std::string programName;
 	std::string programText;
 

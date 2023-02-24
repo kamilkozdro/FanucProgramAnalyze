@@ -19,7 +19,6 @@ CRegister::CRegister(unsigned int newIndex, std::string newComment)
 	comment = newComment;
 }
 
-
 std::string CRegister::getTypeString(CRegister::RegisterType typeToGet)
 {
 	switch (typeToGet)
@@ -30,10 +29,7 @@ std::string CRegister::getTypeString(CRegister::RegisterType typeToGet)
 		return "PositionRegister";
 	default:
 		return "";
-}
-
-std::vector<CRegister::RegisterType> CRegister::getAllRegisterTypes()
-	
+	}
 }
 
 std::vector<CRegister::RegisterType> CRegister::getAllRegisterTypes()
@@ -43,6 +39,7 @@ std::vector<CRegister::RegisterType> CRegister::getAllRegisterTypes()
 		RegisterType::Register, RegisterType::PositionRegister,
 		RegisterType::None
 	};
+	return registerTypes;
 }
 
 std::vector<std::string> CRegister::getAllRegisterTypesString()

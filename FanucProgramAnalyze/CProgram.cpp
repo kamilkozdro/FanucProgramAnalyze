@@ -512,7 +512,7 @@ bool CProgram::readSignals()
 	std::string keywordEnd = "]";
 	std::string keywordCommentBegin = ":";
 	std::string keywordCommentEnd = "";
-	for (CSignal::SignalType signalType : CSignal::getAllTypes())
+	for (CSignal::SignalType signalType : CSignal::getAllSignalTypes())
 	{
 		if (signalType == CSignal::SignalType::None)
 			continue;
