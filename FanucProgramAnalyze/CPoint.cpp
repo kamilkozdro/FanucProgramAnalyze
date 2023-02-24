@@ -4,7 +4,7 @@
 
 CPoint::CPoint()
 {
-	type = Type::None;
+	type = PointType::None;
 }
 
 CPoint::~CPoint()
@@ -78,7 +78,7 @@ void CPoint::printInfo()
 
 CPointJoint::CPointJoint()
 {
-	type = Type::Joint;
+	type = PointType::Joint;
 }
 
 void CPointJoint::printInfo()
@@ -94,7 +94,7 @@ void CPointJoint::printInfo()
 
 CPointCartesian::CPointCartesian()
 {
-	type = Type::Cartesian;
+	type = PointType::Cartesian;
 }
 
 void CPointCartesian::setConfig(ConfigFlag1 newFlag1,

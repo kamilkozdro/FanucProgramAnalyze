@@ -2,10 +2,10 @@
 
 CSignal::CSignal()
 {
-	type = Type::None;
+	type = SignalType::None;
 }
 
-CSignal::CSignal(unsigned int newIndex, Type newType, IO newIO, std::string newComment)
+CSignal::CSignal(unsigned int newIndex, SignalType newType, SignalIO newIO, std::string newComment)
 {
 	type = newType;
 	index = newIndex;
@@ -13,67 +13,67 @@ CSignal::CSignal(unsigned int newIndex, Type newType, IO newIO, std::string newC
 	comment = newComment;
 }
 
-std::string CSignal::getTypeString(Type typeToGet)
+std::string CSignal::getTypeString(SignalType typeToGet)
 {
 	switch (typeToGet)
 	{
-	case Type::Digital:
+	case SignalType::Digital:
 		return "Digital";
-	case Type::Analog:
+	case SignalType::Analog:
 		return "Analog";
-	case Type::Group:
+	case SignalType::Group:
 		return "Group";
-	case Type::Robot:
+	case SignalType::Robot:
 		return "Robot";
-	case Type::Flag:
+	case SignalType::Flag:
 		return "Flag";
-	case Type::UOP:
+	case SignalType::UOP:
 		return "UOP";
-	case Type::SOP:
+	case SignalType::SOP:
 		return "SOP";
 	default:
 		return "None";
 	}
 }
 
-std::vector<CSignal::Type> CSignal::getAllTypes()
+std::vector<CSignal::SignalType> CSignal::getAllSignalTypes()
 {
-	std::vector<Type> signalsTypes =
+	std::vector<SignalType> signalsTypes =
 	{
-		Type::Digital, Type::Analog, Type::Group,
-		Type::Robot, Type::Flag, Type::UOP, Type::SOP,
-		Type::None
+		SignalType::Digital, SignalType::Analog, SignalType::Group,
+		SignalType::Robot, SignalType::Flag, SignalType::UOP, SignalType::SOP,
+		SignalType::None
 	};
 	return signalsTypes;
 }
 
-std::vector<std::string> CSignal::getAllTypesString()
+std::vector<std::string> CSignal::getAllSignalTypesString()
 {
 	std::vector<std::string> signalTypesStrings;
-	for (CSignal::Type singleType : CSignal::getAllTypes())
+	for (SignalType singleType : getAllSignalTypes())
 	{
-		signalTypesStrings.push_back(CSignal::getTypeString(singleType));
+		signalTypesStrings.push_back(getTypeString(singleType));
 	}
 	return signalTypesStrings;
 }
 
-std::string CSignal::getTypeKeyword(Type typeToGet)
+std::string CSignal::getTypeKeyword(SignalType typeToGet)
 {
 	switch (typeToGet)
 	{
-	case Type::Digital:
+	case SignalType::Digital:
 		return "D";
-	case Type::Analog:
+	case SignalType::Analog:
 		return "A";
-	case Type::Group:
+	case SignalType::Group:
 		return "G";
-	case Type::Robot:
+	case SignalType::Robot:
 		return "R";
-	case Type::Flag:
+	case SignalType::Flag:
 		return "F";
-	case Type::UOP:
+	case SignalType::UOP:
 		return "U";
-	case Type::SOP:
+	case SignalType::SOP:
 		return "S";
 	default:
 		return "";
@@ -85,31 +85,31 @@ std::string CSignal::getIOString()
 {
 	switch (io)
 	{
-	case IO::Input:
+	case SignalIO::Input:
 		return "Input";
-	case IO::Output:
+	case SignalIO::Output:
 		return "Output";
 	default:
 		return "None";
 	}
 }
 
-std::vector<CSignal::IO> CSignal::getAllIO()
+std::vector<CSignal::SignalIO> CSignal::getAllIO()
 {
-	std::vector<IO> signalIOs =
+	std::vector<SignalIO> signalIOs =
 	{
-		IO::Input, IO::Output, IO::None
+		SignalIO::Input, SignalIO::Output, SignalIO::None
 	};
 	return signalIOs;
 }
 
-std::string CSignal::getIOKeyword(IO ioToGet)
+std::string CSignal::getIOKeyword(SignalIO ioToGet)
 {
 	switch (ioToGet)
 	{
-	case IO::Input:
+	case SignalIO::Input:
 		return "I";
-	case IO::Output:
+	case SignalIO::Output:
 		return "O";
 	default:
 		return "";
@@ -136,57 +136,57 @@ bool CSignal::operator == (CSignal signalToCompare)
 }
 
 
-CSignalDigital::CSignalDigital(unsigned int newIndex, IO newIO, std::string newComment = "")
+CSignalDigital::CSignalDigital(unsigned int newIndex, SignalIO newIO, std::string newComment = "")
 {
-	type = Type::Digital;
+	type = SignalType::Digital;
 	index = newIndex;
 	io = newIO;
 	comment = newComment;
 }
 
-CSignalAnalog::CSignalAnalog(unsigned int newIndex, IO newIO, std::string newComment = "")
+CSignalAnalog::CSignalAnalog(unsigned int newIndex, SignalIO newIO, std::string newComment = "")
 {
-	type = Type::Analog;
+	type = SignalType::Analog;
 	index = newIndex;
 	io = newIO;
 	comment = newComment;
 }
 
-CSignalGroup::CSignalGroup(unsigned int newIndex, IO newIO, std::string newComment = "")
+CSignalGroup::CSignalGroup(unsigned int newIndex, SignalIO newIO, std::string newComment = "")
 {
-	type = Type::Group;
+	type = SignalType::Group;
 	index = newIndex;
 	io = newIO;
 	comment = newComment;
 }
 
-CSignalRobot::CSignalRobot(unsigned int newIndex, IO newIO, std::string newComment = "")
+CSignalRobot::CSignalRobot(unsigned int newIndex, SignalIO newIO, std::string newComment = "")
 {
-	type = Type::Robot;
+	type = SignalType::Robot;
 	index = newIndex;
 	io = newIO;
 	comment = newComment;
 }
 
-CSignalFlag::CSignalFlag(unsigned int newIndex, IO newIO, std::string newComment = "")
+CSignalFlag::CSignalFlag(unsigned int newIndex, SignalIO newIO, std::string newComment = "")
 {
-	type = Type::Flag;
+	type = SignalType::Flag;
 	index = newIndex;
 	io = newIO;
 	comment = newComment;
 }
 
-CSignalUOP::CSignalUOP(unsigned int newIndex, IO newIO, std::string newComment = "")
+CSignalUOP::CSignalUOP(unsigned int newIndex, SignalIO newIO, std::string newComment = "")
 {
-	type = Type::UOP;
+	type = SignalType::UOP;
 	index = newIndex;
 	io = newIO;
 	comment = newComment;
 }
 
-CSignalSOP::CSignalSOP(unsigned int newIndex, IO newIO, std::string newComment = "")
+CSignalSOP::CSignalSOP(unsigned int newIndex, SignalIO newIO, std::string newComment = "")
 {
-	type = Type::SOP;
+	type = SignalType::SOP;
 	index = newIndex;
 	io = newIO;
 	comment = newComment;

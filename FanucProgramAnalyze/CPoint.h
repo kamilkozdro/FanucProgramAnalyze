@@ -5,7 +5,7 @@
 class CPoint
 {
 public:
-	enum class Type {Joint, Cartesian, None};
+	enum class PointType {Joint, Cartesian, None};
 
 	CPoint();
 	virtual ~CPoint();
@@ -16,7 +16,7 @@ public:
 	float getPosition(unsigned int index);
 	void setIndex(unsigned int newIndex) { pointIndex = newIndex; };
 	unsigned int getIndex() { return pointIndex; };
-	Type getType() { return type; };
+	PointType getType() { return type; };
 	void virtual printInfo();
 
 private:
@@ -24,7 +24,7 @@ private:
 protected:
 	float position[6] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 	unsigned int pointIndex = 0;
-	Type type;
+	PointType type;
 };
 
 class CPointJoint : public CPoint

@@ -5,6 +5,7 @@
 
 #include "CPoint.h"
 #include "CSignal.h"
+#include "CRegister.h"
 
 class CProgram
 {

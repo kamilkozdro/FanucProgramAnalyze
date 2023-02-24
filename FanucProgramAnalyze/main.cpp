@@ -6,7 +6,12 @@
 
 int main()
 {
+
 	
+
+	
+	/*
+
 	std::vector<std::string> excludePrograms{};
 
 	std::string path("fanucPrograms/");
@@ -41,8 +46,7 @@ int main()
 	fanucProgram->readSignals();
 	fanucProgram->printSignals();
 	
-	
-
+	*/
 
 	return 1;
 }

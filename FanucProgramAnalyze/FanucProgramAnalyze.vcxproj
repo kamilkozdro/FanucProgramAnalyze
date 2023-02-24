@@ -131,6 +131,7 @@
     <ClCompile Include="CPoint.cpp" />
     <ClCompile Include="CProgram.cpp" />
     <ClCompile Include="CProgramsManager.cpp" />
+    <ClCompile Include="CRegister.cpp" />
     <ClCompile Include="CSignal.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="CPoint.h" />
     <ClInclude Include="CProgram.h" />
     <ClInclude Include="CProgramsManager.h" />
+    <ClInclude Include="CRegister.h" />
     <ClInclude Include="CSignal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

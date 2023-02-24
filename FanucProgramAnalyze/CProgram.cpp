@@ -335,21 +335,21 @@ bool CProgram::readSinglePointAttributes(std::string& buffer)
 	unsigned int iPointNumber = std::stoi(sPointNumber);
 
 	// Find config and point type
-	CPoint::Type pointType;
+	CPoint::PointType pointType;
 	std::string sConfig = findString(buffer, "CONFIG : '", "'");
 	if (sConfig.empty())
 	{
-		pointType = CPoint::Type::Joint;
+		pointType = CPoint::PointType::Joint;
 	}
 	else
 	{
-		pointType = CPoint::Type::Cartesian;
+		pointType = CPoint::PointType::Cartesian;
 
 	}
 
 		switch (pointType)
 	{
-	case CPoint::Type::Joint:
+	case CPoint::PointType::Joint:
 	{
 		//Find point coordinates
 		std::vector<float> sCordsValues;
@@ -382,7 +382,7 @@ bool CProgram::readSinglePointAttributes(std::string& buffer)
 
 		return true;
 	}
-	case  CPoint::Type::Cartesian:
+	case  CPoint::PointType::Cartesian:
 	{
 		//Find point coordinates
 		std::vector<float> sCordsValues;
@@ -512,13 +512,13 @@ bool CProgram::readSignals()
 	std::string keywordEnd = "]";
 	std::string keywordCommentBegin = ":";
 	std::string keywordCommentEnd = "";
-	for (CSignal::Type signalType : CSignal::getAllTypes())
+	for (CSignal::SignalType signalType : CSignal::getAllTypes())
 	{
-		if (signalType == CSignal::Type::None)
+		if (signalType == CSignal::SignalType::None)
 			continue;
-		for	(CSignal::IO signalIO : CSignal::getAllIO())
+		for	(CSignal::SignalIO signalIO : CSignal::getAllIO())
 		{
-			if (signalIO == CSignal::IO::None)
+			if (signalIO == CSignal::SignalIO::None)
 				continue;
 			std::string keywordBegin =
 				CSignal::getTypeKeyword(signalType)
