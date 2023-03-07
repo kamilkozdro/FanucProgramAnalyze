@@ -36,9 +36,11 @@ public:
 	bool readPointsAttributes();
 	bool readProgramsCalls();
 	bool readSignals();
+	bool readRegisters();
 
 	void printPoints();
 	void printSignals();
+	void printRegisters();
 	void printProgramsNames();
 
 	static std::string findString(std::string& buffer,
@@ -66,5 +68,6 @@ private:
 	std::string readProgramCall(std::string& buffer, size_t& pos);
 	
 	bool containSignal(CSignal newSignal);
+	bool containRegister(CRegister newRegister);
 };
 

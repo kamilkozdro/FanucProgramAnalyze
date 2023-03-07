@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <vector>
-
 #include "CPoint.h"
 
 class CRegister
@@ -30,6 +29,8 @@ public:
 
 	void printInfo();
 
+	bool operator ==(CRegister registerToCompare);
+
 protected:
 	unsigned int index = 0;
 	RegisterType type = RegisterType::None;
@@ -41,6 +42,7 @@ private:
 
 };
 
+// TODO: Find a way to read and add position to CPositionRegister
 class CPositionRegister : public CRegister
 {
 public:

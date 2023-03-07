@@ -189,6 +189,16 @@ void CProgram::printSignals()
 	}
 }
 
+void CProgram::printRegisters()
+{
+	std::cout << "Registers:\n";
+	for (CRegister reg : registers)
+	{
+		std::cout << "\t- ";
+		reg.printInfo();
+	}
+}
+
 void CProgram::printProgramsNames()
 {
 	std::cout << "Called Programs:\n";
@@ -566,11 +576,75 @@ bool CProgram::readSignals()
 	return true;
 }
 
+bool CProgram::readRegisters()
+{
+	std::string keywordSign = "[";
+	std::string keywordEnd = "]";
+	std::string keywordCommentBegin = ":";
+	std::string keywordCommentEnd = "";
+	for (CRegister::RegisterType registerType : CRegister::getAllRegisterTypes())
+	{
+		if (registerType == CRegister::RegisterType::None)
+			continue;
+
+		std::string keywordBegin = 
+			CRegister::getTypeKeyword(registerType) + keywordSign;
+		std::string foundString = "Init";
+		size_t searchPos = 0;
+
+		while (!foundString.empty() && searchPos < programText.length())
+		{
+			foundString = findString(programText, keywordBegin, keywordEnd, searchPos);
+			if (foundString.empty())
+			{
+				continue;
+			}
+
+			// Find register index
+			size_t searchPos2 = 0;
+			std::string sRegisterIndex;
+			while (std::isdigit(foundString.at(searchPos2))
+				&& searchPos2 < foundString.length())
+			{
+				sRegisterIndex.push_back(foundString.at(searchPos2));
+				searchPos2++;
+			}
+			if (sRegisterIndex.empty())
+				continue;
+			unsigned int registerIndex = std::stoi(sRegisterIndex);
+
+			// Find register comment
+			std::string signalComment =
+				findString(foundString, keywordCommentBegin, keywordCommentEnd);
+			// Create register, check if already exist, if not -> add
+			CRegister newRegister(registerIndex, registerType, signalComment);
+			if (!containRegister(newRegister))
+			{
+				registers.push_back(newRegister);
+			}
+
+			searchPos += foundString.length();
+		}
+	}
+
+	return true;
+}
+
 bool CProgram::containSignal(CSignal newSignal)
 {
 	for (CSignal singleSignal : signals)
 	{
 		if (singleSignal == newSignal)
+			return true;
+	}
+	return false;
+}
+
+bool CProgram::containRegister(CRegister newRegister)
+{
+	for (CRegister singleRegister : registers)
+	{
+		if (singleRegister == newRegister)
 			return true;
 	}
 	return false;

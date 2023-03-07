@@ -72,6 +72,14 @@ void CRegister::printInfo()
 		<< " " << getComment() << "\n";
 }
 
+bool CRegister::operator ==(CRegister registerToCompare)
+{
+	if (index == registerToCompare.getIndex()
+		&& type == registerToCompare.getType())
+		return true;
+	else
+		return false;
+}
 
 CPositionRegister::CPositionRegister(unsigned int newIndex, CPoint newPosition, std::string newComment)
 {

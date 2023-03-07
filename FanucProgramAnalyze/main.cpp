@@ -7,11 +7,6 @@
 int main()
 {
 
-	
-
-	
-	/*
-
 	std::vector<std::string> excludePrograms{};
 
 	std::string path("fanucPrograms/");
@@ -43,10 +38,9 @@ int main()
 	if (fanucProgram == nullptr)
 		return 0;
 
-	fanucProgram->readSignals();
-	fanucProgram->printSignals();
+	fanucProgram->readRegisters();
+	fanucProgram->printRegisters();
 	
-	*/
 
 	return 1;
 }
