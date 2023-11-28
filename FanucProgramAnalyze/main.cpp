@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+#include <regex>
+#include <string>
 
 #include "CProgramsManager.h"
 
@@ -39,8 +41,8 @@ int main()
 		return 0;
 
 	fanucProgram->readRegisters();
-	fanucProgram->printRegisters();
-	
+	fanucProgram->readSignals();
+	fanucProgram->printSignals();
 
 	return 1;
 }

@@ -129,6 +129,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CPoint.cpp" />
+    <ClCompile Include="CPointCartesian.cpp" />
+    <ClCompile Include="CPointJoint.cpp" />
+    <ClCompile Include="CPositionRegister.cpp" />
     <ClCompile Include="CProgram.cpp" />
     <ClCompile Include="CProgramsManager.cpp" />
     <ClCompile Include="CRegister.cpp" />
@@ -137,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPoint.h" />
+    <ClInclude Include="CPointCartesian.h" />
+    <ClInclude Include="CPointJoint.h" />
+    <ClInclude Include="CPositionRegister.h" />
     <ClInclude Include="CProgram.h" />
     <ClInclude Include="CProgramsManager.h" />
     <ClInclude Include="CRegister.h" />

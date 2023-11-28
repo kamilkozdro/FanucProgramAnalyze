@@ -41,15 +41,3 @@ private:
 
 
 };
-
-// TODO: Find a way to read and add position to CPositionRegister
-class CPositionRegister : public CRegister
-{
-public:
-	CPositionRegister(unsigned int newIndex, CPoint newPosition, std::string newComment);
-protected:
-
-private:
-	CPoint position;
-};
-

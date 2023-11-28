@@ -119,9 +119,9 @@ std::string CSignal::getIOKeyword(SignalIO ioToGet)
 void CSignal::printInfo()
 {
 	std::cout << getTypeString()
-		<< " " << getIOString()
-		<< " " << getIndex()
-		<< " " << getComment() << "\n";
+		<< "" << getIOString()
+		<< "[" << getIndex()
+		<< ":" << getComment() << "]\n";
 }
 
 

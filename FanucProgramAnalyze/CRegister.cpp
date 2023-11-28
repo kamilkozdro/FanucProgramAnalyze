@@ -68,8 +68,8 @@ std::string CRegister::getTypeKeyword(CRegister::RegisterType typeToGet)
 void CRegister::printInfo()
 {
 	std::cout << getTypeString()
-		<< " " << getIndex()
-		<< " " << getComment() << "\n";
+		<< "[" << getIndex()
+		<< ":" << getComment() << "]\n";
 }
 
 bool CRegister::operator ==(CRegister registerToCompare)
@@ -81,9 +81,3 @@ bool CRegister::operator ==(CRegister registerToCompare)
 		return false;
 }
 
-CPositionRegister::CPositionRegister(unsigned int newIndex, CPoint newPosition, std::string newComment)
-{
-	type = RegisterType::PositionRegister;
-	index = newIndex;
-	comment = newComment;
-}

@@ -2,10 +2,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <regex>
 
 #include "CPoint.h"
 #include "CSignal.h"
 #include "CRegister.h"
+#include "CPointCartesian.h"
+#include "CPointJoint.h"
 
 class CProgram
 {

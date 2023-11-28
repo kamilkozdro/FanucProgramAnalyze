@@ -518,57 +518,38 @@ bool CProgram::readSinglePointAttributes(std::string& buffer)
 
 bool CProgram::readSignals()
 {
-	std::string keywordSign = "[";
-	std::string keywordEnd = "]";
-	std::string keywordCommentBegin = ":";
-	std::string keywordCommentEnd = "";
-	for (CSignal::SignalType signalType : CSignal::getAllSignalTypes())
+
+	std::vector<CSignal::SignalType> allSearchedSignalTypes = CSignal::getAllSignalTypes();
+	std::vector<CSignal::SignalIO> allSearchedSignalIO = { CSignal::SignalIO::Output, CSignal::SignalIO::Input };
+
+	for (auto signalTypeIt = allSearchedSignalTypes.begin(); signalTypeIt != allSearchedSignalTypes.end(); ++signalTypeIt)
 	{
-		if (signalType == CSignal::SignalType::None)
-			continue;
-		for	(CSignal::SignalIO signalIO : CSignal::getAllIO())
+		for (auto signalIOIt = allSearchedSignalIO.begin(); signalIOIt != allSearchedSignalIO.end(); ++signalIOIt)
 		{
-			if (signalIO == CSignal::SignalIO::None)
-				continue;
-			std::string keywordBegin =
-				CSignal::getTypeKeyword(signalType)
-				+ CSignal::getIOKeyword(signalIO)
-				+ keywordSign;
-			std::string foundString = "Init";
-			size_t searchPos = 0;
 
-			while (!foundString.empty() && searchPos < programText.length())
+			std::string patternString = 
+				CSignal::getTypeKeyword(*signalTypeIt) +
+				CSignal::getIOKeyword(*signalIOIt) +
+				R"(\[(\d+)(?::([^\]]*))?\])";
+
+			std::regex pattern(patternString);
+			std::sregex_iterator regexIt(programText.begin(), programText.end(), pattern);
+			std::sregex_iterator regexEnd;
+
+			while (regexIt != regexEnd)
 			{
-				foundString = findString(programText, keywordBegin, keywordEnd, searchPos);
-				if (foundString.empty())
-				{
-					continue;
-				}
+				std::smatch matches = *regexIt;
+				int signalNumber = std::stoi(matches[1].str());
+				std::string signalComment = matches[2].str();
 
-				// Find signal index
-				size_t searchPos2 = 0;
-				std::string sSignalIndex;
-				while (std::isdigit(foundString.at(searchPos2))
-					&& searchPos2 < foundString.length())
-				{
-					sSignalIndex.push_back(foundString.at(searchPos2));
-					searchPos2++;
-				}
-				if (sSignalIndex.empty())
-					continue;
-				unsigned int signalIndex = std::stoi(sSignalIndex);
+				auto signalOccurenceIt = std::find_if(signals.begin(), signals.end(), [signalNumber](CSignal& sig) {
+					return sig.getIndex() == signalNumber;
+					});
 
-				// Find signal comment
-				std::string signalComment =
-					findString(foundString, keywordCommentBegin, keywordCommentEnd);
-				// Create Signal, check if already exist, if not -> add
-				CSignal newSignal(signalIndex, signalType, signalIO, signalComment);
-				if (!containSignal(newSignal))
-				{
-					signals.push_back(newSignal);
-				}
-					
-				searchPos += foundString.length();
+				if (signalOccurenceIt == signals.end())
+					signals.push_back(CSignal(signalNumber, CSignal::SignalType::Digital, CSignal::SignalIO::Input, signalComment));
+
+				++regexIt;
 			}
 		}
 	}
@@ -578,56 +559,37 @@ bool CProgram::readSignals()
 
 bool CProgram::readRegisters()
 {
-	std::string keywordSign = "[";
-	std::string keywordEnd = "]";
-	std::string keywordCommentBegin = ":";
-	std::string keywordCommentEnd = "";
-	for (CRegister::RegisterType registerType : CRegister::getAllRegisterTypes())
+
+	std::regex pattern(R"(R\[(\d+)(?::([^\]]*))?\])");
+
+	std::sregex_iterator it(programText.begin(), programText.end(), pattern);
+	std::sregex_iterator end;
+
+	try
 	{
-		if (registerType == CRegister::RegisterType::None)
-			continue;
-
-		std::string keywordBegin = 
-			CRegister::getTypeKeyword(registerType) + keywordSign;
-		std::string foundString = "Init";
-		size_t searchPos = 0;
-
-		while (!foundString.empty() && searchPos < programText.length())
+		while (it != end)
 		{
-			foundString = findString(programText, keywordBegin, keywordEnd, searchPos);
-			if (foundString.empty())
-			{
-				continue;
-			}
+			std::smatch matches = *it;
+			int registerNumber = std::stoi(matches[1].str());
+			std::string registerComment = matches[2].str();
 
-			// Find register index
-			size_t searchPos2 = 0;
-			std::string sRegisterIndex;
-			while (std::isdigit(foundString.at(searchPos2))
-				&& searchPos2 < foundString.length())
-			{
-				sRegisterIndex.push_back(foundString.at(searchPos2));
-				searchPos2++;
-			}
-			if (sRegisterIndex.empty())
-				continue;
-			unsigned int registerIndex = std::stoi(sRegisterIndex);
+			auto regOccurenceIt = std::find_if(registers.begin(), registers.end(), [registerNumber](CRegister& reg) {
+				return reg.getIndex() == registerNumber;
+				});
 
-			// Find register comment
-			std::string signalComment =
-				findString(foundString, keywordCommentBegin, keywordCommentEnd);
-			// Create register, check if already exist, if not -> add
-			CRegister newRegister(registerIndex, registerType, signalComment);
-			if (!containRegister(newRegister))
-			{
-				registers.push_back(newRegister);
-			}
+			if(regOccurenceIt == registers.end())
+				registers.push_back(CRegister(registerNumber, registerComment));
 
-			searchPos += foundString.length();
+			++it;
 		}
-	}
 
-	return true;
+		return true;
+	}
+	catch (const std::regex_error& e)
+	{
+		std::cerr << "Regex error: " << e.what() << std::endl;
+		return false;
+	}
 }
 
 bool CProgram::containSignal(CSignal newSignal)
