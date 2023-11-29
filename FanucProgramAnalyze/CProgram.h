@@ -42,6 +42,7 @@ public:
 	bool readSignals();
 	bool readRegisters();
 	bool readPositionRegisters();
+	bool readAll();
 
 	void printPoints();
 	void printSignals();
@@ -72,8 +73,7 @@ private:
 	std::string programText;
 
 	bool readSinglePointAttributes(std::string& buffer);
-	std::string readProgramCall(std::string& buffer, size_t& pos);
-	
+
 	bool containSignal(CSignal newSignal);
 	bool containRegister(CRegister newRegister);
 };

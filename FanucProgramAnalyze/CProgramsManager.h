@@ -14,7 +14,7 @@ public:
 	~CProgramsManager();
 
 	
-	bool readProgramFromFile(std::string fileName);
+	bool addProgramFromFile(std::string fileName);
 	void printProgramNameList();
 	CProgram* getProgramByName(std::string programName);
 	int getProgramIndexByName(std::string programName);

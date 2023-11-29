@@ -33,17 +33,11 @@ int main()
 
 	for (std::string file : programFiles)
 	{
-		programManager.readProgramFromFile(path + file);
+		programManager.addProgramFromFile(path + file);
 	}
-	
-	CProgram* fanucProgram = programManager.getProgramByName("SPRAWDZIANY");
-	if (fanucProgram == nullptr)
-		return 0;
 
-	fanucProgram->readRegisters();
-	fanucProgram->readPositionRegisters();
-	fanucProgram->readSignals();
-	fanucProgram->printPositionRegisters();
+	programManager.printProgramNameList();
+
 
 	return 1;
 }

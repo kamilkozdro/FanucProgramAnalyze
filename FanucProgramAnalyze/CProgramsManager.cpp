@@ -10,10 +10,9 @@ CProgramsManager::~CProgramsManager()
 	for (CProgram* program : programs)
 	{
 		delete program;
+		program = nullptr;
 	}
 	programs.clear();
-
-	//std::cout << "CProgramsManager destroyed" << std::endl;
 }
 
 bool CProgramsManager::addProgram(std::string newProgramText, std::string newProgramName = "")
@@ -58,7 +57,7 @@ std::string CProgramsManager::readFileContent(std::string fileName)
 
 }
 
-bool CProgramsManager::readProgramFromFile(std::string fileName)
+bool CProgramsManager::addProgramFromFile(std::string fileName)
 {
 	if (fileName.empty())
 	{
@@ -87,8 +86,9 @@ bool CProgramsManager::readProgramFromFile(std::string fileName)
 		return false;
 	}
 
-	addProgram(fileBuffer, programName);
-	programs.back()->readPointsAttributes();
+	CProgram *newProgram = new CProgram(fileBuffer, programName);
+	newProgram->readAll();
+	programs.push_back(newProgram);
 
 	return true;
 }
@@ -122,12 +122,10 @@ std::string CProgramsManager::readProgramName(std::string& buffer)
 
 void CProgramsManager::printProgramNameList()
 {
+	std::cout << "Program names:" << std::endl;
 	for (CProgram* program : programs)
 	{
-		std::cout << "Program name:" << program->getProgramName() << std::endl;
-		//std::cout << " Called programs:" << std::endl;
-		program->printProgramsNames();
-		std::cout << std::endl;
+		std::cout << program->getProgramName() << std::endl;
 	}
 }
 
