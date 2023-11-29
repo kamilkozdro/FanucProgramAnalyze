@@ -7,6 +7,7 @@
 #include "CPoint.h"
 #include "CSignal.h"
 #include "CRegister.h"
+#include "CPositionRegister.h"
 #include "CPointCartesian.h"
 #include "CPointJoint.h"
 
@@ -40,10 +41,12 @@ public:
 	bool readProgramsCalls();
 	bool readSignals();
 	bool readRegisters();
+	bool readPositionRegisters();
 
 	void printPoints();
 	void printSignals();
 	void printRegisters();
+	void printPositionRegisters();
 	void printProgramsNames();
 
 	static std::string findString(std::string& buffer,
@@ -64,6 +67,7 @@ private:
 	std::vector<std::string> calledProgramsNames;
 	std::vector<CSignal> signals;
 	std::vector<CRegister> registers;
+	std::vector<CPositionRegister> positionRegisters;
 	std::string programName;
 	std::string programText;
 

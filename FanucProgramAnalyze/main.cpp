@@ -41,8 +41,9 @@ int main()
 		return 0;
 
 	fanucProgram->readRegisters();
+	fanucProgram->readPositionRegisters();
 	fanucProgram->readSignals();
-	fanucProgram->printSignals();
+	fanucProgram->printPositionRegisters();
 
 	return 1;
 }

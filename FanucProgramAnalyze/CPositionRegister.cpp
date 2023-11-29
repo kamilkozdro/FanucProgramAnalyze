@@ -5,4 +5,12 @@ CPositionRegister::CPositionRegister(unsigned int newIndex, CPoint newPosition, 
 	type = RegisterType::PositionRegister;
 	index = newIndex;
 	comment = newComment;
+	position = newPosition;
+}
+
+CPositionRegister::CPositionRegister(unsigned int newIndex, std::string newComment)
+{
+	type = RegisterType::PositionRegister;
+	index = newIndex;
+	comment = newComment;
 }

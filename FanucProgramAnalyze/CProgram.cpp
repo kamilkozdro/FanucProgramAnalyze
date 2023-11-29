@@ -199,6 +199,16 @@ void CProgram::printRegisters()
 	}
 }
 
+void CProgram::printPositionRegisters()
+{
+	std::cout << "Position registers:\n";
+	for (CPositionRegister posReg : positionRegisters)
+	{
+		std::cout << "\t- ";
+		posReg.printInfo();
+	}
+}
+
 void CProgram::printProgramsNames()
 {
 	std::cout << "Called Programs:\n";
@@ -579,6 +589,40 @@ bool CProgram::readRegisters()
 
 			if(regOccurenceIt == registers.end())
 				registers.push_back(CRegister(registerNumber, registerComment));
+
+			++it;
+		}
+
+		return true;
+	}
+	catch (const std::regex_error& e)
+	{
+		std::cerr << "Regex error: " << e.what() << std::endl;
+		return false;
+	}
+}
+
+bool CProgram::readPositionRegisters()
+{
+	std::regex pattern(R"(PR\[(\d+)(?::([^\]]*))?\])");
+
+	std::sregex_iterator it(programText.begin(), programText.end(), pattern);
+	std::sregex_iterator end;
+
+	try
+	{
+		while (it != end)
+		{
+			std::smatch matches = *it;
+			int positionRegisterNumber = std::stoi(matches[1].str());
+			std::string positionRegisterComment = matches[2].str();
+
+			auto regOccurenceIt = std::find_if(positionRegisters.begin(), positionRegisters.end(), [positionRegisterNumber](CPositionRegister& reg) {
+				return reg.getIndex() == positionRegisterNumber;
+				});
+
+			if (regOccurenceIt == positionRegisters.end())
+				positionRegisters.push_back(CPositionRegister(positionRegisterNumber, positionRegisterComment));
 
 			++it;
 		}
