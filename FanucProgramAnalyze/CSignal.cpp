@@ -1,12 +1,5 @@
 #include "CSignal.h"
 
-CSignal::CSignal()
-{
-	index = 0;
-	comment = "";
-	type = SignalType::F;
-}
-
 CSignal::CSignal(unsigned int newIndex, SignalType newType, std::string newComment)
 {
 	type = newType;

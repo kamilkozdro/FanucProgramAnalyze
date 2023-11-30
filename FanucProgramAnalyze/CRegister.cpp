@@ -2,7 +2,10 @@
 
 CRegister::CRegister()
 {
-
+	index = 0;
+	comment = "";
+	type = RegisterType::Register;
+	value = 0;
 }
 
 CRegister::CRegister(unsigned int newIndex, RegisterType newType, std::string newComment)
@@ -36,8 +39,7 @@ std::vector<CRegister::RegisterType> CRegister::getAllRegisterTypes()
 {
 	std::vector<RegisterType> registerTypes =
 	{
-		RegisterType::Register, RegisterType::PositionRegister,
-		RegisterType::None
+		RegisterType::Register, RegisterType::PositionRegister
 	};
 	return registerTypes;
 }

@@ -29,14 +29,15 @@ int main()
 		return 0;
 	}
 
-	CProgramsManager programManager;
+	CProgramsManager programsManager;
 
 	for (std::string file : programFiles)
 	{
-		programManager.addProgramFromFile(path + file);
+		programsManager.addProgramFromFile(path + file);
 	}
 
-	programManager.printProgramNameList();
+
+	programsManager.programToCSV(programsManager.getProgramByName("SPRAWDZIANY"));
 
 
 	return 1;

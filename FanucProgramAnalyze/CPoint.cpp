@@ -67,7 +67,7 @@ float CPoint::getPosition(unsigned int index)
 
 void CPoint::printInfo()
 {
-	std::cout << "Point P[" << pointIndex << "]:" << std::endl;
+	std::cout << "Point P[" << index << "]:" << std::endl;
 	for (unsigned int i = 0; i < 6; ++i)
 	{
 		std::cout << "\t" << i + 1 << ": " << position[i] << std::endl;

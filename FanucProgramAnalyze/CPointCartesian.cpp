@@ -75,7 +75,7 @@ std::string CPointCartesian::getConfigString()
 
 void CPointCartesian::printInfo()
 {
-	std::cout << "Point P[" << pointIndex << "]:" << std::endl;
+	std::cout << "Point P[" << index << "]:" << std::endl;
 	std::cout << "\t1: X: " << position[0] << " mm" << std::endl;
 	std::cout << "\t2: Y: " << position[1] << " mm" << std::endl;
 	std::cout << "\t3: Z: " << position[2] << " mm" << std::endl;

@@ -149,3 +149,74 @@ int CProgramsManager::getProgramIndexByName(std::string programName)
 	}
 	return -1;
 }
+
+void CProgramsManager::programToCSV(CProgram* program)
+{
+	std::string header = program->getProgramName()+ ";R;PR;";
+	for (CSignal::SignalType signalType : CSignal::getAllSignalTypes())
+	{
+		header.append(CSignal::getTypeString(signalType)+";");
+	}
+	header.append("\n");
+
+	std::cout << header;
+
+	size_t maxSize = 0;
+
+	std::vector<CRegister> registersToExport = program->getRegisters();
+	if (maxSize < registersToExport.size())
+		maxSize = registersToExport.size();
+
+	std::vector<CPositionRegister> positionRegistersToExport = program->getPositionRegister();
+	if (maxSize < positionRegistersToExport.size())
+		maxSize = positionRegistersToExport.size();
+	
+	std::vector<std::vector<CSignal>> signalsToExport;
+	for (CSignal::SignalType signalType : CSignal::getAllSignalTypes())
+	{
+		std::vector<CSignal> signalsOneTypeVec = program->getSignals(signalType);
+		signalsToExport.push_back(signalsOneTypeVec);
+		if (maxSize < signalsOneTypeVec.size())
+			maxSize = signalsOneTypeVec.size();
+	}
+
+	std::string body = "";
+	for (int i = 0; i < maxSize ; ++i)
+	{
+		body.append(";");
+
+		if (registersToExport.size() < i + 1)
+			body.append(";");
+		else
+		{
+			std::string registerString = std::to_string(registersToExport[i].getIndex()) + ":" + registersToExport[i].getComment();
+			body.append(registerString + ";");
+		}
+
+		if (positionRegistersToExport.size() < i + 1)
+			body.append(";");
+		else
+		{
+			std::string positionRegisterString = std::to_string(positionRegistersToExport[i].getIndex()) + ":" + positionRegistersToExport[i].getComment();
+			body.append(positionRegisterString + ";");
+		}
+
+		for (std::vector<CSignal> signalVec : signalsToExport)
+		{
+			if (signalVec.size() < i+1)
+			{
+				body.append(";");
+			}
+			else
+			{
+				std::string signalString = std::to_string(signalVec[i].getIndex()) + ":" + signalVec[i].getComment();
+				body.append(signalString + ";");
+			}
+		}
+		body.append("\n");
+	}
+
+
+	std::cout << body;
+
+}

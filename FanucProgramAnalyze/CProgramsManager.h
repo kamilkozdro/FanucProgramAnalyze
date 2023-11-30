@@ -18,6 +18,7 @@ public:
 	void printProgramNameList();
 	CProgram* getProgramByName(std::string programName);
 	int getProgramIndexByName(std::string programName);
+	void programToCSV(CProgram* program);
 
 private:
 	std::vector<CProgram*> programs;

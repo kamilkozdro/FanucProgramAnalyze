@@ -50,6 +50,11 @@ public:
 	void printPositionRegisters();
 	void printProgramsNames();
 
+	std::vector<CSignal> getSignals() { return signals; };
+	std::vector<CSignal> getSignals(CSignal::SignalType signalType);
+	std::vector<CRegister> getRegisters() { return registers; };
+	std::vector<CPositionRegister> getPositionRegister() { return positionRegisters; };
+
 	static std::string findString(std::string& buffer,
 		std::string sStartWith,
 		std::string sEndsWith,

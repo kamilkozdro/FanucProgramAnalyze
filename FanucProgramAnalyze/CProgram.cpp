@@ -494,33 +494,39 @@ bool CProgram::readSinglePointAttributes(std::string& buffer)
 bool CProgram::readSignals()
 {
 
-	std::vector<CSignal::SignalType> allSearchedSignalTypes = CSignal::getAllSignalTypes();
+	//std::vector<CSignal::SignalType> allSearchedSignalTypes = CSignal::getAllSignalTypes();
 
-	for (auto signalTypeIt = allSearchedSignalTypes.begin(); signalTypeIt != allSearchedSignalTypes.end(); ++signalTypeIt)
+	for (CSignal::SignalType signalType : CSignal::getAllSignalTypes())
 	{
-			std::string patternString = 
-				CSignal::getTypeString(*signalTypeIt) +
-				R"(\[(\d+)(?::([^\]]*))?\])";
+		std::vector<CSignal> oneTypeSignals;
 
-			std::regex pattern(patternString);
-			std::sregex_iterator regexIt(programText.begin(), programText.end(), pattern);
-			std::sregex_iterator regexEnd;
+		std::string patternString = 
+			CSignal::getTypeString(signalType) +
+			R"(\[(\d+)(?::([^\]]*))?\])";
 
-			while (regexIt != regexEnd)
+		std::regex pattern(patternString);
+		std::sregex_iterator regexIt(programText.begin(), programText.end(), pattern);
+		std::sregex_iterator regexEnd;
+
+		while (regexIt != regexEnd)
+		{
+			std::smatch matches = *regexIt;
+			int signalNumber = std::stoi(matches[1].str());
+			std::string signalComment = matches[2].str();
+
+			auto signalOccurenceIt = std::find_if(oneTypeSignals.begin(), oneTypeSignals.end(), [signalNumber](CSignal& sig)
 			{
-				std::smatch matches = *regexIt;
-				int signalNumber = std::stoi(matches[1].str());
-				std::string signalComment = matches[2].str();
+				return sig.getIndex() == signalNumber;
+			});
 
-				auto signalOccurenceIt = std::find_if(signals.begin(), signals.end(), [signalNumber](CSignal& sig) {
-					return sig.getIndex() == signalNumber;
-					});
+			if (signalOccurenceIt == oneTypeSignals.end())
+				oneTypeSignals.push_back(CSignal(signalNumber, signalType, signalComment));
 
-				if (signalOccurenceIt == signals.end())
-					signals.push_back(CSignal(signalNumber, *signalTypeIt, signalComment));
-
-				++regexIt;
+			++regexIt;
 		}
+
+		std::sort(oneTypeSignals.begin(), oneTypeSignals.end());
+		signals.insert(signals.end(), oneTypeSignals.begin(), oneTypeSignals.end());
 	}
 
 	return true;
@@ -551,6 +557,8 @@ bool CProgram::readRegisters()
 
 			++it;
 		}
+
+		std::sort(registers.begin(), registers.end());
 
 		return true;
 	}
@@ -586,6 +594,8 @@ bool CProgram::readPositionRegisters()
 			++it;
 		}
 
+		std::sort(positionRegisters.begin(), positionRegisters.end());
+
 		return true;
 	}
 	catch (const std::regex_error& e)
@@ -604,6 +614,19 @@ bool CProgram::readAll()
 	readSignals();
 	
 	return true;
+}
+
+std::vector<CSignal> CProgram::getSignals(CSignal::SignalType signalType)
+{
+	std::vector<CSignal> signalsVec;
+
+	for (CSignal signal : signals)
+	{
+		if (signal.getType() == signalType)
+			signalsVec.push_back(signal);
+	}
+
+	return signalsVec;
 }
 
 bool CProgram::containSignal(CSignal newSignal)
