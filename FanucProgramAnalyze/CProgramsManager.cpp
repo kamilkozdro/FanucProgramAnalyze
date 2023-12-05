@@ -15,14 +15,11 @@ CProgramsManager::~CProgramsManager()
 	programs.clear();
 }
 
-bool CProgramsManager::addProgram(std::string newProgramText, std::string newProgramName = "")
+void CProgramsManager::addProgram(std::string newProgramText, std::string newProgramName = "")
 {
-	//std::cout << "Adding program: " << newProgramName << std::endl;
-
 	CProgram* newProgram = new CProgram(newProgramText, newProgramName);
 	programs.push_back(newProgram);
 
-	return true;
 }
 
 bool CProgramsManager::hasProgramName(std::string programName)
@@ -61,14 +58,14 @@ bool CProgramsManager::addProgramFromFile(std::string fileName)
 {
 	if (fileName.empty())
 	{
-		//THROW ERROR
+		std::cout << "Error: Empty program file name" << std::endl;
 		return false;
 	}
 
 	std::string fileBuffer = readFileContent(fileName);
 	if (fileBuffer.empty())
 	{
-		//THROW ERROR
+		std::cout << "Error: Empty program: " << fileName << std::endl;
 		return false;
 	}
 
@@ -81,7 +78,6 @@ bool CProgramsManager::addProgramFromFile(std::string fileName)
 	}
 	if (hasProgramName(programName))
 	{
-		//THROW ERROR
 		std::cout << "Program already opened" << std::endl;
 		return false;
 	}
@@ -95,29 +91,12 @@ bool CProgramsManager::addProgramFromFile(std::string fileName)
 
 std::string CProgramsManager::readProgramName(std::string& buffer)
 {
-	std::string programNameKeyword = "/PROG";
-	std::string programName;
-	size_t programNameIndex = buffer.find(programNameKeyword);
-	if (programNameIndex == std::string::npos)
-	{
-		return "";
-	}
-	programNameIndex += programNameKeyword.length();
-	// Skip whitespaces after keyword
-	while (std::isspace(buffer[programNameIndex]))
-	{
-		programNameIndex++;
-	}
-	// Read program name
-	while (std::isalnum(buffer[programNameIndex])
-		|| buffer[programNameIndex] == '_'
-		|| buffer[programNameIndex] == '-')
-	{
-		programName.push_back(buffer[programNameIndex]);
-		programNameIndex++;
-	}
+	std::regex pattern("/PROG\\s+([^\\s]+)");
 
-	return programName;
+	std::smatch match;
+	std::regex_search(buffer, match, pattern);
+
+	return match[1].str();
 }
 
 void CProgramsManager::printProgramNameList()
@@ -158,8 +137,6 @@ void CProgramsManager::programToCSV(CProgram* program)
 		header.append(CSignal::getTypeString(signalType)+";");
 	}
 	header.append("\n");
-
-	std::cout << header;
 
 	size_t maxSize = 0;
 
@@ -216,7 +193,105 @@ void CProgramsManager::programToCSV(CProgram* program)
 		body.append("\n");
 	}
 
+}
 
-	std::cout << body;
+void CProgramsManager::saveToFile(std::string filePath, std::string text)
+{
+	std::ofstream outputStream(filePath);
+	if (outputStream.is_open())
+	{
+		outputStream << text;
 
+		outputStream.close();
+
+		std::cout << "Report successfully saved to " << filePath << std::endl;
+	}
+}
+
+std::string CProgramsManager::createProgramReport(CProgram* program)
+{
+	std::string header = program->getProgramName() + ";R;PR;";
+	for (CSignal::SignalType signalType : CSignal::getAllSignalTypes())
+	{
+		header.append(CSignal::getTypeString(signalType) + ";");
+	}
+	header.append("\n");
+
+	size_t maxSize = 0;
+
+	std::vector<CRegister> registersToExport = program->getRegisters();
+	if (maxSize < registersToExport.size())
+		maxSize = registersToExport.size();
+
+	std::vector<CPositionRegister> positionRegistersToExport = program->getPositionRegister();
+	if (maxSize < positionRegistersToExport.size())
+		maxSize = positionRegistersToExport.size();
+
+	std::vector<std::vector<CSignal>> signalsToExport;
+	for (CSignal::SignalType signalType : CSignal::getAllSignalTypes())
+	{
+		std::vector<CSignal> signalsOneTypeVec = program->getSignals(signalType);
+		signalsToExport.push_back(signalsOneTypeVec);
+		if (maxSize < signalsOneTypeVec.size())
+			maxSize = signalsOneTypeVec.size();
+	}
+
+	std::string body = "";
+	for (int i = 0; i < maxSize; ++i)
+	{
+		body.append(";");
+
+		if (registersToExport.size() < i + 1)
+			body.append(";");
+		else
+		{
+			std::string registerString = std::to_string(registersToExport[i].getIndex()) + ":" + registersToExport[i].getComment();
+			body.append(registerString + ";");
+		}
+
+		if (positionRegistersToExport.size() < i + 1)
+			body.append(";");
+		else
+		{
+			std::string positionRegisterString = std::to_string(positionRegistersToExport[i].getIndex()) + ":" + positionRegistersToExport[i].getComment();
+			body.append(positionRegisterString + ";");
+		}
+
+		for (std::vector<CSignal> signalVec : signalsToExport)
+		{
+			if (signalVec.size() < i + 1)
+			{
+				body.append(";");
+			}
+			else
+			{
+				std::string signalString = std::to_string(signalVec[i].getIndex()) + ":" + signalVec[i].getComment();
+				body.append(signalString + ";");
+			}
+		}
+		body.append("\n");
+	}
+
+	return header + body + '\n';
+}
+
+std::string CProgramsManager::createProgramReport(std::vector<CProgram*> programs)
+{
+	std::string programsReport = "";
+	for (CProgram* program : programs)
+	{
+		programsReport.append(createProgramReport(program));
+	}
+
+	return programsReport;
+}
+
+void CProgramsManager::exportToCSV(CProgram* program)
+{
+	saveToFile("report.csv", createProgramReport(program));
+}
+
+void CProgramsManager::exportToCSV(std::vector<CProgram*> programs)
+{
+	saveToFile("report.csv", createProgramReport(programs));
 }

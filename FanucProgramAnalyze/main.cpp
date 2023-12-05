@@ -37,8 +37,8 @@ int main()
 	}
 
 
-	programsManager.programToCSV(programsManager.getProgramByName("SPRAWDZIANY"));
-
+	//programsManager.exportToCSV(programsManager.getPrograms());
 
 	return 1;
+
 }

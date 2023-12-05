@@ -2,5 +2,6 @@
 
 CIndexed::CIndexed()
 {
-
+	index = 0;
+	comment = "";
 }

@@ -194,11 +194,15 @@ void CProgram::printSignals()
 void CProgram::printRegisters()
 {
 	std::cout << "Registers:\n";
-	for (CRegister reg : registers)
+	if (registers.size() > 0)
 	{
-		std::cout << "\t- ";
-		reg.printInfo();
+		for (CRegister reg : registers)
+		{
+			std::cout << "\t- ";
+			reg.printInfo();
+		}
 	}
+	
 }
 
 void CProgram::printPositionRegisters()

@@ -1,0 +1,221 @@
+-BCKED8-;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+
+-BCKED9-;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+
+-BCKEDT-;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+
+ALARM2;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;127:zly chwyt syg;;;;;;;;;;
+;2:;;;128:imadlo blad;;;;;;;;;;
+
+BGLOGIC1;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;;;130:kosz 1 dobre pelny;10:poz HOME;;;;;;;5:akt skrzynka 1;;;
+;;;131:kosz 2 dobre pelny;11:poz bezp CNC;;;;;;;6:akt skrzynka 2;;;
+;;;;112:poz bezp;;;;;;;;;;
+;;;;115:AUTO MODE;;;;;;;;;;
+
+CHWYTAK1;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;;;;;;;;1:otworz chwytak 1;;;;;;
+
+CHWYTAK2;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;;;;;;;;3:otworz chwytak 2;;;;;;
+
+CHWYTAK3;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;;;;;;;;5:otworz chwytak 3;;;;;;
+
+DRZWI;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;;;;133:zamk/otw drzwi;;;;;;;;;;
+
+GETDATA;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;;;;;;;;;;;
+;2:;;;;;;;;;;;;;
+;3:;;;;;;;;;;;;;
+;4:;;;;;;;;;;;;;
+;5:;;;;;;;;;;;;;
+;6:;;;;;;;;;;;;;
+;7:;;;;;;;;;;;;;
+;8:;;;;;;;;;;;;;
+;9:;;;;;;;;;;;;;
+
+GRATOWANIE;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:stan chwytaka 1;5:gratow offset;108:gratownik wl;108:wl gratownik;;;;;;;;;;
+;3:stan chwytaka 3;24:offset Y-4;;;;;;;;;;;;
+;5:gratow offset;;;;;;;;;;;;;
+;24:offset Y-4;;;;;;;;;;;;;
+;25:posuw L;;;;;;;;;;;;;
+;26:posuw gratow;;;;;;;;;;;;;
+
+HOME;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+
+IMADLA;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;;;;131:zamk/otworz imadla;;;;;;;;;;
+
+IVERSON;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:stan chwytaka 1;;;;;;;;;;;;;
+;3:stan chwytaka 3;;;;;;;;;;;;;
+
+MASTERPOS;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+
+OBLOFFSET;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;3:modyf offset;3:modyf offset;101:paletka gorna;;;;;;;;;;;
+;15:aktualny detal;;102:paletka dolna;;;;;;;;;;;
+;17:max kolumn;;;;;;;;;;;;;
+;18:kolumna;;;;;;;;;;;;;
+;19:wiersz;;;;;;;;;;;;;
+
+OBSLUGACNC;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:stan chwytaka 1;4:offset cnc;119:belka 1;131:zamk/otworz imadla;;;7:czuj indukc;;;;10:detal z belki 1;;;
+;2:stan chwytaka 2;8:offset Y3;120:belka 2;132:przedmuch imadel;;;;;;;11:detal z belki 2;;;
+;3:stan chwytaka 3;18:offset cnc2;135:imadla zamk;;;;;;;;;;;
+;4:offset cnc;22:offset Z30;;;;;;;;;;;;
+;8:offset Y3;23:offs Z80;;;;;;;;;;;;
+;18:offset cnc2;;;;;;;;;;;;;
+;22:offset Z30;;;;;;;;;;;;;
+;23:offs Z80;;;;;;;;;;;;;
+;25:posuw L;;;;;;;;;;;;;
+
+ODBIERZPRZEDMUCH;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;103:przechwyt otwarty;103:zamknij przechwyt;;;;;;;;;;
+
+ODKLADANIE;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:stan chwytaka 1;21:offset Y-90 Z100;132:kosz 3 sele mitut pelny;117:kosz 1;;;;;;;5:akt skrzynka 1;;;
+;3:stan chwytaka 3;25:offs Y-120 Z120;133:kosz 4 sele wym11 pelny;118:kosz 2;;;;;;;6:akt skrzynka 2;;;
+;11:stan det 1;27:offs Y-120 Z50;134:kosz 5 zle pelny;119:kosz 3;;;;;;;10:detal z belki 1;;;
+;13:stan det 3;;;120:kosz 4;;;;;;;11:detal z belki 2;;;
+;21:offset Y-90 Z100;;;121:kosz 5;;;;;;;;;;
+;25:offs Y-120 Z120;;;123:szczeki 1;;;;;;;;;;
+;27:offs Y-120 Z50;;;124:szczeki 2;;;;;;;;;;
+;28:posuw odkladanie;;;125:szczeki 3;;;;;;;;;;
+;;;;126:szczeki 4;;;;;;;;;;
+
+OTWORZCHWYTAK;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;;;;;;;;;;;
+;5:aktywny chwytak;;;;;;;;;;;;;
+;6:pomocniczy1;;;;;;;;;;;;;
+;7:pomocniczy2;;;;;;;;;;;;;
+
+PALETKI;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:stan chwytaka 1;3:modyf offset;101:paletka gorna;;;;;;;;;;;
+;2:stan chwytaka 2;10:kompen paletki;102:paletka dolna;;;;;;;;;;;
+;3:modyf offset;;112:paletki gotowe;;;;;;;;;;;
+;10:kompen paletki;;;;;;;;;;;;;
+;15:aktualny detal;;;;;;;;;;;;;
+;16:max wierszy;;;;;;;;;;;;;
+;17:max kolumn;;;;;;;;;;;;;
+;25:posuw L;;;;;;;;;;;;;
+
+PNS0008;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;100:CNC gotowe;100:start cykl;;;;;;;;;;
+;3:stan chwytaka 3;;121:pomiary;;;;;;;;;;;
+;35:czas cyklu;;;;;;;;;;;;;
+
+POMIARY;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;11:stan det 1;27:offs Y-120 Z50;;113:pomiary;;;;;;;10:detal z belki 1;;;
+;13:stan det 3;;;;;;;;;;11:detal z belki 2;;;
+;25:posuw L;;;;;;;;;;12:pom szczeki 1;;;
+;27:offs Y-120 Z50;;;;;;;;;;13:pom szczeki 2;;;
+;;;;;;;;;;;14:pom szczeki 3;;;
+;;;;;;;;;;;15:pom szczeki 4;;;
+
+POZBEZP;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;;;118:prosba zatrz;;;;;;;;;;;
+
+PRZEDMUCHANIE;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:stan chwytaka 1;6:przechwyt offse;103:przechwyt otwarty;102:wl przedmuch;;;;;;;;;;
+;3:stan chwytaka 3;9:przedmuch offs;104:przedmuch wl;103:zamknij przechwyt;;;;;;;;;;
+;6:przechwyt offse;23:offs Z80;;;;;;;;;;;;
+;9:przedmuch offs;;;;;;;;;;;;;
+;23:offs Z80;;;;;;;;;;;;;
+;25:posuw L;;;;;;;;;;;;;
+
+REQMENU;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;;;;;;;;;;;
+;2:;;;;;;;;;;;;;
+
+SENDDATA;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;;;;;;;;;;;
+;2:;;;;;;;;;;;;;
+;3:;;;;;;;;;;;;;
+;4:;;;;;;;;;;;;;
+;5:;;;;;;;;;;;;;
+;6:;;;;;;;;;;;;;
+;7:;;;;;;;;;;;;;
+;8:;;;;;;;;;;;;;
+;9:;;;;;;;;;;;;;
+;10:;;;;;;;;;;;;;
+
+SENDEVNT;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;;;;;;;;;;;
+;2:;;;;;;;;;;;;;
+;3:;;;;;;;;;;;;;
+
+SENDSYSV;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;;;;;;;;;;;
+;2:;;;;;;;;;;;;;
+;3:;;;;;;;;;;;;;
+;4:;;;;;;;;;;;;;
+;5:;;;;;;;;;;;;;
+;6:;;;;;;;;;;;;;
+
+SPRAWDZIANY;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:stan chwytaka 1;7:NOGO offset;106:spr NOGO ok;104:wl mitutoyo;;;;;;;10:detal z belki 1;;;
+;3:stan chwytaka 3;17:offset GO;107:mitutoyo ok;105:wl spr GO;;;;;;;11:detal z belki 2;;;
+;7:NOGO offset;22:offset Z30;111:spr WYM11 dobry;106:wl spr NOGO;;;;;;;;;;
+;11:stan det 1;23:offs Z80;113:spr NOGO zly;109:wl spr WYM11;;;;;;;;;;
+;12:stan det 2;28:offs Z20;114:spr GO zly;123:szczeki 1;;;;;;;;;;
+;13:stan det 3;29:offs Z17;115:spr WYM11 zly;124:szczeki 2;;;;;;;;;;
+;17:offset GO;30:poz na spr GO;117:mitutoyo zly;125:szczeki 3;;;;;;;;;;
+;22:offset Z30;;123:mitutoyo popraw;126:szczeki 4;;;;;;;;;;
+;23:offs Z80;;124:wym11 popraw;129:przedmuch 11;;;;;;;;;;
+;24:szybki posuw spw;;;;;;;;;;;;;
+;25:posuw L;;;;;;;;;;;;;
+;27:posuw sprawdz;;;;;;;;;;;;;
+;28:offs Z20;;;;;;;;;;;;;
+;29:offs Z17;;;;;;;;;;;;;
+;30:poz na spr GO;;;;;;;;;;;;;
+;36:posow go;;;;;;;;;;;;;
+
+STANCHWYTAKA;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;;;;;;;;;;;
+;5:aktywny chwytak;;;;;;;;;;;;;
+;6:pomocniczy1;;;;;;;;;;;;;
+;7:pomocniczy2;;;;;;;;;;;;;
+
+TEST;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+
+TEST5;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;37:;37:;;;;;;;;;;;;
+
+TESTCHWYTAK;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+
+TESTODKLADANIE;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:stan chwytaka 1;14:offset Z70 Y-30;;;;;;;;;10:detal z belki 1;;;
+;3:stan chwytaka 3;20:offset Y-100 Z70;;;;;;;;;11:detal z belki 2;;;
+;11:stan det 1;21:offset Y-90 Z100;;;;;;;;;;;;
+;13:stan det 3;;;;;;;;;;;;;
+;14:offset Z70 Y-30;;;;;;;;;;;;;
+;20:offset Y-100 Z70;;;;;;;;;;;;;
+;21:offset Y-90 Z100;;;;;;;;;;;;;
+;25:posuw L;;;;;;;;;;;;;
+
+TESTPALETKI;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;3:modyf offset;3:modyf offset;101:paletka gorna;;;;;;;;;;;
+;15:aktualny detal;;102:paletka dolna;;;;;;;;;;;
+;25:posuw L;;;;;;;;;;;;;
+
+ZALOZPRZEDMUCH;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;103:przechwyt otwarty;103:zamknij przechwyt;;;;;;;;;;
+
+ZAMKCHWYT;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;127:zly chwyt syg;;;;;;;;;;
+;30:pomocniczy;;;;;;;;;;;;;
+
+ZAMKNIJCHWYTAK;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;1:;;;;;;;;;;;;;
+;5:aktywny chwytak;;;;;;;;;;;;;
+;6:pomocniczy1;;;;;;;;;;;;;
+;7:pomocniczy2;;;;;;;;;;;;;
+
+ZMIENPALETKI;R;PR;DI;DO;AI;AO;RI;RO;GI;GO;F;UOP;SOP;
+;;;112:paletki gotowe;107:zmien palet;;;;;;;;;;
+
