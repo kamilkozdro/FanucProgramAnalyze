@@ -36,7 +36,7 @@ public:
 	unsigned int getFrame() { return frame; };
 	void setTool(unsigned int newTool) { tool = newTool; };
 	unsigned int getTool() { return tool; };
-	void printInfo();
+	virtual void printInfo() override;
 
 private:
 	pointConfig config;

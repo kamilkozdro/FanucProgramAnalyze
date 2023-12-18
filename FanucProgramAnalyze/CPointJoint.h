@@ -6,7 +6,7 @@ class CPointJoint : public CPoint
 public:
 	CPointJoint();
 
-	void printInfo();
+	virtual void printInfo() override;
 private:
 
 protected:

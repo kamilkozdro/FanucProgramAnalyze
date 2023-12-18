@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 #include <string>
 #include <regex>
 
@@ -14,7 +15,7 @@ public:
 	CProgramsManager();
 	~CProgramsManager();
 
-	
+	bool addProgramsFromFolder(std::string folderPath);
 	bool addProgramFromFile(std::string fileName);
 	void printProgramNameList();
 	CProgram* getProgramByName(std::string programName);
@@ -30,6 +31,7 @@ public:
 
 private:
 	std::vector<CProgram*> programs;
+	std::vector<std::string> excludedProgramNames;
 	std::string readFileContent(std::string fileName);
 	void addProgram(std::string newProgramText, std::string newProgramName);
 	bool hasProgramName(std::string programName);

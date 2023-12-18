@@ -24,7 +24,7 @@ public:
 	static std::string getTypeKeyword(RegisterType typeToGet);
 	std::string getTypeKeyword() { return getTypeKeyword(type); };
 
-	void printInfo();
+	virtual void printInfo() override;
 
 	bool operator ==(CRegister registerToCompare);
 	bool operator >(CRegister registerToCompare) { return index > registerToCompare.getIndex(); };

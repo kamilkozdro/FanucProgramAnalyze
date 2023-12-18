@@ -54,6 +54,40 @@ std::string CProgramsManager::readFileContent(std::string fileName)
 
 }
 
+bool CProgramsManager::addProgramsFromFolder(std::string folderPath)
+{
+	std::string allowedExtension(".ls");
+	std::vector<std::string> programFiles;
+
+	for (auto& p : std::filesystem::recursive_directory_iterator(folderPath))
+	{
+		std::string fileExtension = p.path().extension().string();
+		std::string fileName = p.path().stem().string();
+
+		if (std::find(excludedProgramNames.begin(), excludedProgramNames.end(), fileName)
+			!= excludedProgramNames.end())
+		{
+			continue;
+		}
+
+		if (fileExtension == allowedExtension)
+		{
+			programFiles.push_back(fileName + fileExtension);
+		}
+	}
+
+	if (programFiles.empty())
+	{
+		std::cout << "Could not find adequate programs" << std::endl;
+		return false;
+	}
+
+	for (std::string file : programFiles)
+	{
+		addProgramFromFile(folderPath + file);
+	}
+}
+
 bool CProgramsManager::addProgramFromFile(std::string fileName)
 {
 	if (fileName.empty())

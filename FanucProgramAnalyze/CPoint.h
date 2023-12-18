@@ -17,7 +17,7 @@ public:
 	void setPosition(unsigned int index, float newPos);
 	float getPosition(unsigned int index);
 	PointType getType() { return type; };
-	void virtual printInfo();
+	virtual void printInfo() override;
 
 private:
 	
