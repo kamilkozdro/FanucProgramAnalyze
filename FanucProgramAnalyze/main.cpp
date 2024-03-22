@@ -5,39 +5,29 @@
 #include <string>
 
 #include "CProgramsManager.h"
+#include "CFileManager.h"
 
 int main()
 {
+	std::string directory("fanucPrograms/");
 
-	std::vector<std::string> excludePrograms{};
+	CFileManager fileManager;
+	fileManager.findFiles(directory);
 
-	std::string path("fanucPrograms/");
-	std::string allowedExtension(".ls");
-	std::vector<std::string> programFiles;
-
-	for (auto& p : std::filesystem::recursive_directory_iterator(path))
+	if (fileManager.countProgramFilePaths() <= 0)
 	{
-		if (p.path().extension() == allowedExtension)
-		{
-			programFiles.push_back(p.path().stem().string() + allowedExtension);
-		}
-	}
-
-	if (programFiles.empty())
-	{
-		std::cout << "Could not find adequate programs" << std::endl;
 		return 0;
 	}
-
+	
 	CProgramsManager programsManager;
-
-	for (std::string file : programFiles)
+	
+	for (int i = 0; i < fileManager.countProgramFilePaths(); i++)
 	{
-		programsManager.addProgramFromFile(path + file);
+		std::cout << "Parsing " << fileManager.getProgramFilePath(i) << std::endl;
+		programsManager.addParseProgram(fileManager.readFileContent(i));
 	}
 
-
-	//programsManager.exportToCSV(programsManager.getPrograms());
+	fileManager.saveToFile("report.csv", programsManager.createAllProgramReport());
 
 	return 1;
 

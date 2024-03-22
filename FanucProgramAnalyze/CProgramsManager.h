@@ -13,29 +13,21 @@ class CProgramsManager
 public:
 	CProgramsManager();
 	~CProgramsManager();
-
 	
-	bool addProgramFromFile(std::string fileName);
-	void printProgramNameList();
+	bool addParseProgram(std::string programText);
 	CProgram* getProgramByName(std::string programName);
 	int getProgramIndexByName(std::string programName);
-	void programToCSV(CProgram* program);
-
-	std::vector<CProgram*> getPrograms() { return programs; };
-
-	void saveToFile(std::string filePath, std::string text);
-
-	void exportToCSV(CProgram* program);
-	void exportToCSV(std::vector<CProgram*> programs);
+	std::vector<CProgram*> getPrograms() { return _programs; };
+	void printProgramNameList();
+	std::string createAllProgramReport();
+	std::string createProgramReport(CProgram* program);
 
 private:
-	std::vector<CProgram*> programs;
-	std::string readFileContent(std::string fileName);
+	std::vector<CProgram*> _programs;
+
 	void addProgram(std::string newProgramText, std::string newProgramName);
 	bool hasProgramName(std::string programName);
 	std::string readProgramName(std::string& buffer);
-	std::string createProgramReport(std::vector<CProgram*> programs);
-	std::string createProgramReport(CProgram* program);
 
 protected:
 

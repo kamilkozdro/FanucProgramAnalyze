@@ -137,9 +137,11 @@
     <ClCompile Include="CProgramsManager.cpp" />
     <ClCompile Include="CRegister.cpp" />
     <ClCompile Include="CSignal.cpp" />
+    <ClCompile Include="CFileManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CFileManager.h" />
     <ClInclude Include="CIndexed.h" />
     <ClInclude Include="CPoint.h" />
     <ClInclude Include="CPointCartesian.h" />
