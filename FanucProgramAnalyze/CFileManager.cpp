@@ -14,22 +14,31 @@ CFileManager::~CFileManager()
 
 void CFileManager::findFiles(std::string directory)
 {
-	programFilePaths.clear();
-	programsDir = directory;
-	for (auto& p : std::filesystem::recursive_directory_iterator(directory))
+	try
 	{
+		programFilePaths.clear();
+		programsDir = directory;
 
-		if (std::find(excludePrograms.begin(), excludePrograms.end(), p.path().filename().stem()) != excludePrograms.end())
-			continue;
-		if (p.path().extension() == allowedExtension)
+		for (auto& p : std::filesystem::directory_iterator(directory))
 		{
-			programFilePaths.push_back(p.path().string());
+			if (std::filesystem::is_regular_file(p.path()) && p.path().extension() == allowedExtension)
+			{
+				if (std::find(excludePrograms.begin(), excludePrograms.end(), p.path().filename().stem()) == excludePrograms.end())
+				{
+					programFilePaths.push_back(p.path().string());
+				}
+			}
+		}
+
+		if (programFilePaths.empty())
+		{
+			std::cout << "Could not find adequate programs" << std::endl;
+			return;
 		}
 	}
-
-	if (programFilePaths.empty())
+	catch (const std::exception& e)
 	{
-		std::cout << "Could not find adequate programs" << std::endl;
+		std::cout << "Exception: " << e.what() << std::endl;
 		return;
 	}
 }

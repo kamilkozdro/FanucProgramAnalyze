@@ -9,7 +9,11 @@
 
 int main()
 {
-	std::string directory("fanucPrograms/");
+	std::string directory;
+
+	std::cout << "Fanuc programs report will be created as 'report.csv' within same folder as this program" << std::endl;
+	std::cout << "Enter path to directory with fanuc programs, example: C:\\Fanuc\\Programs\\" << std::endl;
+	std::cin >> directory;
 
 	CFileManager fileManager;
 	fileManager.findFiles(directory);
